@@ -136,7 +136,7 @@ def update_game():
     url = "https://raw.githubusercontent.com/iorin006/Rogue_game-py/main/game.py"
     response = requests.get(url)
     if response.status_code == 200:
-        f = open('game.py', 'a')
+        f = open('game.py', 'w')
         f.write(response.text)
     else:
         print("エラーが発生しました。ステータスコード:", response.status_code)
