@@ -1,40 +1,4 @@
 import random
-import requests
-
-# 現在のバージョン
-current_version = "1.5"
-
-# 最新のコードを取得する関数
-def get_latest_code():
-    try:
-        response = requests.get("https://github.com/iorin006/Rogue_game-py/blob/main/game.py")
-        if response.status_code == 200:
-            return response.text
-    except requests.exceptions.RequestException:
-        pass
-    return None
-
-# コードのバージョン比較とアップデート
-def check_update():
-    latest_code = get_latest_code()
-    if latest_code:
-        lines = latest_code.split("\n")
-        for i, line in enumerate(lines):
-            if line.startswith(current_version):
-                version_line = lines[i].strip()
-                latest_version = version_line.split('"')[1]
-                if latest_version > current_version:
-                    print("最新のバージョンが見つかりました。アップデートします。")
-                    with open(__file__, "w") as f:
-                        f.write(latest_code)
-                    print("アップデートが完了しました。再起動してください。")
-                    exit()
-                break
-
-check_update()
-
-# 以下、元のコードを続けて記述します...
-
 
 print('\n   ###コマンド一覧###\ni:ステータス確認, help:ゲーム説明, q:終了\n')
 
