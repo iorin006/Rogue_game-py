@@ -12,8 +12,8 @@ def game():
     get_item = None
 
     # マップのサイズ
-    MAP_WIDTH = 30
-    MAP_HEIGHT = 10
+    MAP_WIDTH = 20
+    MAP_HEIGHT = 5
 
     #キャラクターの初期位置
     player_x = random.randint(0, MAP_WIDTH - 1)
@@ -69,7 +69,8 @@ def game():
         #プレイヤーと敵の攻撃力をランダム生成
         player_attack = random.randint(10,30)
         enemy_attack = random.randint(40,70)
-        print(f'x:{enemy_x} y:{enemy_y}')
+        print(f'敵　　　　　x:{enemy_x} y:{enemy_y}')
+        print(f'プレイヤー　x:{player_x} y:{player_y}')
 
         #敵をランダムに動かす
         enemy_x_move = random.randint(-1, 1)
@@ -91,6 +92,22 @@ def game():
             print('\n@が自分自身　Tはツール　Wは武器　Aは防具　Eはモンスター\n')
         elif command == "i":
             print(f' \n === ステータス === \n武器 {weapon}\n防具 {armor}\n道具 {get_item}') 
+        elif command == "u":
+            #アイテム使う処理
+            if get_item == None:
+                print('\n[・] 使用できるアイテムがありません')
+                continue
+            print('何のアイテムを使う?')
+            print(f'・{get_item}')
+            if input('使うy/n') == 'y':
+                if get_item == '包帯(+10)':
+                    player_hp += 10
+                    get_item = None
+                    print('\n[・] HPが10回復した')
+                elif get_item == '薬草(+20)':
+                    player_hp += 20
+                    get_item = None
+                    print('\n[・] HPが20回復した')
         elif command == "q":
             break
         
@@ -141,7 +158,7 @@ def update_game():
     else:
         print("エラーが発生しました。ステータスコード:", response.status_code)
 
-current_version = '0.1'  # 現在のゲームのバージョン
+current_version = '0.2'  # 現在のゲームのバージョン
 latest_version = get_latest_version()
 if latest_version > current_version:
     print('新しいバージョンが見つかりました。更新します。')
@@ -149,4 +166,3 @@ if latest_version > current_version:
 else:
     print('ゲームは最新バージョンです。')
     game()
-
