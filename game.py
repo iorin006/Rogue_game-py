@@ -2,6 +2,7 @@ import random
 import requests
 import json
 
+
 def game():
     print('\n   ###コマンド一覧###\ni:ステータス確認, help:ゲーム説明, q:終了\n')
 
@@ -12,8 +13,10 @@ def game():
     get_item = None
 
     # マップのサイズ
-    MAP_WIDTH = 20
-    MAP_HEIGHT = 5
+    # MAP_WIDTH = 20
+    # MAP_HEIGHT = 5
+    MAP_WIDTH = 50
+    MAP_HEIGHT = 10
 
     #キャラクターの初期位置
     player_x = random.randint(0, MAP_WIDTH - 1)
@@ -25,8 +28,6 @@ def game():
     armor_list = ['勇者の盾(+30)','鉄の盾(+20)','鍋の蓋(+10)']
 
     # 各アイテムの位置
-    item_x = random.randint(0, MAP_WIDTH - 1)
-    item_y = random.randint(0, MAP_HEIGHT - 1)
 
     tool_x = random.randint(0, MAP_WIDTH - 1)
     tool_y = random.randint(0, MAP_HEIGHT - 1)
@@ -41,7 +42,6 @@ def game():
     enemy_x = random.randint(0,MAP_WIDTH -1)
     enemy_y = random.randint(0,MAP_HEIGHT -1)
 
-    #敵のステータス
     enemy_hp = 50
 
     # ゲームループ
@@ -69,6 +69,7 @@ def game():
         #プレイヤーと敵の攻撃力をランダム生成
         player_attack = random.randint(10,30)
         enemy_attack = random.randint(40,70)
+
         print(f'敵　　　　　x:{enemy_x} y:{enemy_y}')
         print(f'プレイヤー　x:{player_x} y:{player_y}')
 
@@ -93,6 +94,7 @@ def game():
         elif command == "i":
             print(f' \n === ステータス === \n武器 {weapon}\n防具 {armor}\n道具 {get_item}') 
         elif command == "u":
+
             #アイテム使う処理
             if get_item == None:
                 print('\n[・] 使用できるアイテムがありません')
@@ -127,10 +129,64 @@ def game():
             armor_y = None
             armor = armor_list[random.randint(0, len(armor_list)) -1]
             print(f'\n[・] {armor}を入手しました')
-
+        
 
         # 戦闘
         if player_x == enemy_x and player_y == enemy_y:
+            print('========================================')
+            print('接敵')
+            enemy_hp -= player_attack
+            print(f'\n[・] 敵に{player_attack}ダメージを与えた')
+            if enemy_hp <= 0:
+                input('おめでとうございます！！勝利しました！')
+                break
+            player_hp -= enemy_attack
+            print(f'\n[・] 敵から{enemy_attack}ダメージを受けた')
+            if player_hp <= 0:
+                input('敗北しました')
+                break
+        if player_x == enemy_x and player_y == enemy_y -1:
+            print('========================================')
+            print('接敵')
+            enemy_hp -= player_attack
+            print(f'\n[・] 敵に{player_attack}ダメージを与えた')
+            if enemy_hp <= 0:
+                input('おめでとうございます！！勝利しました！')
+                break
+            player_hp -= enemy_attack
+            print(f'\n[・] 敵から{enemy_attack}ダメージを受けた')
+            if player_hp <= 0:
+                input('敗北しました')
+                break
+        if player_x == enemy_x and player_y == enemy_y +1:
+            print('========================================')
+            print('接敵')
+            enemy_hp -= player_attack
+            print(f'\n[・] 敵に{player_attack}ダメージを与えた')
+            if enemy_hp <= 0:
+                input('おめでとうございます！！勝利しました！')
+                break
+            player_hp -= enemy_attack
+            print(f'\n[・] 敵から{enemy_attack}ダメージを受けた')
+            if player_hp <= 0:
+                input('敗北しました')
+                break
+        if player_x == enemy_x -1 and player_y == enemy_y:
+            print('========================================')
+            print('接敵')
+            enemy_hp -= player_attack
+            print(f'\n[・] 敵に{player_attack}ダメージを与えた')
+            if enemy_hp <= 0:
+                input('おめでとうございます！！勝利しました！')
+                break
+            player_hp -= enemy_attack
+            print(f'\n[・] 敵から{enemy_attack}ダメージを受けた')
+            if player_hp <= 0:
+                input('敗北しました')
+                break
+        if player_x == enemy_x +1 and player_y == enemy_y:
+            print('========================================')
+            print('接敵')
             enemy_hp -= player_attack
             print(f'\n[・] 敵に{player_attack}ダメージを与えた')
             if enemy_hp <= 0:
@@ -158,7 +214,7 @@ def update_game():
     else:
         print("エラーが発生しました。ステータスコード:", response.status_code)
 
-current_version = '0.2'  # 現在のゲームのバージョン
+current_version = '0.3'  # 現在のゲームのバージョン
 latest_version = get_latest_version()
 if latest_version > current_version:
     print('新しいバージョンが見つかりました。更新します。')
