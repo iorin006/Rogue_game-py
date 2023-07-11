@@ -13,10 +13,9 @@ def game():
     get_item = None
 
     # マップのサイズ
-    # MAP_WIDTH = 20
-    # MAP_HEIGHT = 5
-    MAP_WIDTH = 50
-    MAP_HEIGHT = 10
+    MAP_WIDTH = 20
+    MAP_HEIGHT = 5
+
 
     #キャラクターの初期位置
     player_x = random.randint(0, MAP_WIDTH - 1)
