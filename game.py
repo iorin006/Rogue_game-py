@@ -72,12 +72,16 @@ def game():
         print(f'敵　　　　　x:{enemy_x} y:{enemy_y}')
         print(f'プレイヤー　x:{player_x} y:{player_y}')
 
-        #敵をランダムに動かす
+        # 敵をランダムに動かす
         enemy_x_move = random.randint(-1, 1)
         enemy_y_move = random.randint(-1, 1)
-        if enemy_x_move == 0:
-            enemy_y = enemy_y + enemy_y_move
-        enemy_x = enemy_x + enemy_x_move
+
+        if 0 <= enemy_x + enemy_x_move < MAP_WIDTH:
+            enemy_x += enemy_x_move
+
+        if 0 <= enemy_y + enemy_y_move < MAP_HEIGHT:
+            enemy_y += enemy_y_move
+
 
         # 入力されたコマンド
         if command == "w" and player_y > 0:
@@ -213,7 +217,7 @@ def update_game():
     else:
         print("エラーが発生しました。ステータスコード:", response.status_code)
 
-current_version = '0.3'  # 現在のゲームのバージョン
+current_version = '0.4'  # 現在のゲームのバージョン
 latest_version = get_latest_version()
 if latest_version > current_version:
     print('新しいバージョンが見つかりました。更新します。')
